@@ -2,6 +2,7 @@
 #define __PLAYER_HH
 
 #include <string>
+#include <vector>
 
 enum class RoleTitle {
   kGoalkeeper = 1,
@@ -12,18 +13,19 @@ enum class RoleTitle {
 
 class Player {
  public:
-  Player();
-  Player(std::string _name, float _score = -1);
+  Player() = default;
+  Player(std::string _name);
   Player(const Player &) = default;
   Player &operator=(const Player &) = default;
 
   void set_score(float score);
   std::string get_name();
-  float get_score();
+  float get_score(int week_num);
+  void add_match();
 
  private:
   std::string name;
-  float score;
+  std::vector<float> scores;
 };
 
 #endif /* __PLAYER_HH */

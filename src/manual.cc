@@ -7,14 +7,14 @@
 using namespace std;
 
 pair<Player *, Player *> find_two_best_players(
-    const vector<Player *> &players) {
-  set<Player *> players_set(players.begin(), players.end());
-  auto first_player_it = players_set.begin();
-  auto second_player_it = (players_set.size() > 1) ? ++players_set.begin() :
-                                                     first_player_it;
-  auto temp_player_it = ++players_set.begin();
-  while (temp_player_it != players_set.end()) {
-    if ((*temp_player_it)->get_score() >= (*first_player_it)->get_score()) {
+    const vector<Player *> &players, int week_num) {
+  auto first_player_it = players.begin();
+  auto second_player_it = (players.size() > 1) ? ++players.begin() :
+                                                 first_player_it;
+  auto temp_player_it = ++players.begin();
+  while (temp_player_it != players.end()) {
+    if ((*temp_player_it)->get_score(week_num) >=
+        (*first_player_it)->get_score(week_num)) {
       second_player_it = first_player_it;
       first_player_it = temp_player_it;
     }

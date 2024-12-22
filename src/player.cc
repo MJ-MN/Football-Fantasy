@@ -5,19 +5,20 @@
 
 using namespace std;
 
-Player::Player() : score(-1) {}
-
-Player::Player(string _name, float _score)
-    : name(_name), score(_score) {}
+Player::Player(string _name) : name(_name) {}
 
 void Player::set_score(float score) {
-  this->score = score;
+  this->scores.back() = score;
 }
 
 string Player::get_name() {
   return this->name;
 }
 
-float Player::get_score() {
-  return this->score;
+float Player::get_score(int week_num) {
+  return scores[week_num];
+}
+
+void Player::add_match() {
+  this->scores.push_back(-1.0f);
 }

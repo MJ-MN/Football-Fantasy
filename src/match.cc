@@ -11,32 +11,6 @@
 
 using namespace std;
 
-Match::Match(const Match &match) {
-  this->firstTeam = new Team(*match.firstTeam);
-  this->secondTeam = new Team(*match.secondTeam);
-  this->injured = match.injured;
-  this->yellow_cards = match.yellow_cards;
-  this->red_cards = match.red_cards;
-}
-
-Match& Match::operator=(const Match &match) {
-  if (this != &match) {
-    delete this->firstTeam;
-    this->firstTeam = new Team(*match.firstTeam);
-    delete this->secondTeam;
-    this->secondTeam = new Team(*match.secondTeam);
-    this->injured = match.injured;
-    this->yellow_cards = match.yellow_cards;
-    this->red_cards = match.red_cards;
-  }
-  return *this;
-}
-
-Match::~Match() {
-  delete this->firstTeam;
-  delete this->secondTeam;
-}
-
 void Match::extract_data(MatchTitle title, string content,
                          Football &football) {
   switch (title) {
@@ -63,32 +37,24 @@ void Match::extract_data(MatchTitle title, string content,
   }
 }
 
-pair<Player *, Player *> Match::find_best_players_in_role(RoleTitle role) {
-  pair<Player *, Player *> best_players1 =
-      find_two_best_players(this->firstTeam->get_players_in_role(role));
-  pair<Player *, Player *> best_players2 =
-      find_two_best_players(this->secondTeam->get_players_in_role(role));
-  vector<Player *> best_players = {best_players1.first, best_players2.first,
-                                   best_players1.second, best_players2.second};
-  return find_two_best_players(best_players);
-}
-
 void Match::extract_teams(std::string content, Football &football) {
   stringstream content_ss(content);
   string name("");
   getline(content_ss, name, ':');
-  this->firstTeam = new Team(*(football.find_team_by_name(name)));
+  this->firstTeam = football.find_team_by_name(name);
+  this->firstTeam->add_match();
   getline(content_ss, name);
-  this->secondTeam = new Team(*(football.find_team_by_name(name)));
+  this->secondTeam = football.find_team_by_name(name);
+  this->secondTeam->add_match();
 }
 
 void Match::extract_result(std::string content) {
   stringstream content_ss(content);
   string num("");
   getline(content_ss, num, ':');
-  this->firstTeam->set_goals(stoi(num));
+  this->firstTeam->set_goal(stoi(num));
   getline(content_ss, num);
-  this->secondTeam->set_goals(stoi(num));
+  this->secondTeam->set_goal(stoi(num));
 }
 
 void Match::extract_players_in_field(string content, vector<Player *> &field) {

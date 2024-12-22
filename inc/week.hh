@@ -21,13 +21,8 @@ class Week {
   void extract_matches_data(std::ifstream &ifs,
                             const std::vector<MatchTitle> &teams_title_pos,
                             Football &football);
-  void print_team_of_the_week();
 
  private:
-  void print_best_player_in_role(RoleTitle role);
-  void print_player_score(const std::pair<Player *, Player *> &palyers,
-                          RoleTitle role);
-
   std::vector<Match*> matches;
 };
 

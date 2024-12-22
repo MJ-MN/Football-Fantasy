@@ -18,24 +18,25 @@ enum class TeamTitle {
 
 class Team {
  public:
-  Team();
+  Team() = default;
   Team(std::string _name);
   Team(const Team &);
   Team &operator=(const Team &);
   ~Team();
 
-  void set_goals(int _goals);
+  void set_goal(int goal);
   std::string get_name();
   std::vector<Player *> &get_players_in_role(RoleTitle role);
   Player *find_player_by_name(std::string name);
   void extract_data(TeamTitle index, std::string content);
+  void add_match();
 
  private:
   void extract_players_in_role(std::string content,
                                std::vector<Player *> &role);
 
   std::string name;
-  int goals;
+  std::vector<int> goals;
   std::vector<Player *> goalkeepers;
   std::vector<Player *> defenders;
   std::vector<Player *> midfielders;

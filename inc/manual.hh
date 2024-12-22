@@ -14,6 +14,6 @@ const std::string NOT_FOUND = "Not Found";
 const std::string EMPTY = "Empty";
 
 std::pair<Player *, Player *> find_two_best_players(
-    const std::vector<Player *> &players);
+    const std::vector<Player *> &players, int week_num);
 
 #endif /* __MANUAL_HH */

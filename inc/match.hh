@@ -23,13 +23,12 @@ class Football;
 class Match {
  public:
   Match() = default;
-  Match(const Match &);
-  Match& operator=(const Match &);
-  ~Match();
+  Match(const Match &) = default;
+  Match& operator=(const Match &) = default;
+  ~Match() = default;
 
   void extract_data(MatchTitle title, std::string content,
                     Football &football);
-  std::pair<Player *, Player *> find_best_players_in_role(RoleTitle role);
 
  private:
   void extract_teams(std::string content, Football &football);
