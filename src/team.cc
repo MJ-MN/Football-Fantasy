@@ -12,48 +12,28 @@ using namespace std;
 Team::Team(string _name) : name(_name) {}
 
 Team::~Team() {
-  for (auto player : this->goalkeepers) { delete player; }
-  for (auto player : this->defenders) { delete player; }
-  for (auto player : this->midfielders) { delete player; }
-  for (auto player : this->forwards) { delete player; }
+  for (auto player : this->players) {
+    delete player;
+  }
 }
 
 Team::Team(const Team &team) {
   this->name = team.name;
   this->goals = team.goals;
-  for (auto player : team.goalkeepers) {
-    this->goalkeepers.push_back(new Player(*player));
-  }
-  for (auto player : team.defenders) {
-    this->defenders.push_back(new Player(*player));
-  }
-  for (auto player : team.midfielders) {
-    this->midfielders.push_back(new Player(*player));
-  }
-  for (auto player : team.forwards) {
-    this->forwards.push_back(new Player(*player));
+  for (auto player : team.players) {
+    this->players.push_back(player->clone());
   }
 }
 
 Team &Team::operator=(const Team &team) {
   if (this != &team) {
-    for (auto player : this->goalkeepers) { delete player; }
-    for (auto player : this->defenders) { delete player; }
-    for (auto player : this->midfielders) { delete player; }
-    for (auto player : this->forwards) { delete player; }
+    for (auto player : this->players) {
+      delete player;
+    }
     this->name = team.name;
     this->goals = team.goals;
-    for (auto player : team.goalkeepers) {
-      this->goalkeepers.push_back(new Player(*player));
-    }
-    for (auto player : team.defenders) {
-      this->defenders.push_back(new Player(*player));
-    }
-    for (auto player : team.midfielders) {
-      this->midfielders.push_back(new Player(*player));
-    }
-    for (auto player : team.forwards) {
-      this->forwards.push_back(new Player(*player));
+    for (auto player : team.players) {
+      this->players.push_back(player->clone());
     }
   }
   return *this;
@@ -67,31 +47,21 @@ string Team::get_name() {
   return this->name;
 }
 
-vector<Player *> &Team::get_players_in_role(RoleTitle role) {
-  switch (role) {
-    case RoleTitle::kGoalkeeper:
-      return this->goalkeepers;
-    case RoleTitle::kDefender:
-      return this->defenders;
-    case RoleTitle::kMidfielder:
-      return this->midfielders;
-    default:
-      return this->forwards;
+vector<Player *> Team::get_players_in_role(RoleTitle role) {
+  vector<Player *> players_in_role;
+  for (Player *player : this->players) {
+    if (player->get_role() == role) {
+      players_in_role.push_back(player);
+    }
   }
+  return players_in_role;
 }
 
 Player *Team::find_player_by_name(string name) {
-  for (Player *player : this->goalkeepers) {
-    if (player->get_name() == name) { return player; }
-  }
-  for (Player *player : this->defenders) {
-    if (player->get_name() == name) { return player; }
-  }
-  for (Player *player : this->midfielders) {
-    if (player->get_name() == name) { return player; }
-  }
-  for (Player *player : this->forwards) {
-    if (player->get_name() == name) { return player; }
+  for (Player *player : this->players) {
+    if (player->get_name() == name) {
+      return player;
+    }
   }
   return NULL;
 }
@@ -102,32 +72,55 @@ void Team::extract_data(TeamTitle title, string content) {
       this->name = content;
       break;
     case TeamTitle::kTeamGoalkeepers:
-      this->extract_players_in_role(content, this->goalkeepers);
+      this->extract_goalkeepers(content);
       break;
     case TeamTitle::kTeamDefenders:
-      this->extract_players_in_role(content, this->defenders);
+      this->extract_defenders(content);
       break;
     case TeamTitle::kTeamMidfielders:
-      this->extract_players_in_role(content, this->midfielders);
+      this->extract_midfielders(content);
       break;
     default:
-      this->extract_players_in_role(content, this->forwards);
+      this->extract_forwards(content);
       break;
   }
 }
 
 void Team::add_match() {
   this->goals.push_back(-1);
-  for (Player *player : this->goalkeepers) { player->add_match(); }
-  for (Player *player : this->defenders) { player->add_match(); }
-  for (Player *player : this->midfielders) { player->add_match(); }
-  for (Player *player : this->forwards) { player->add_match(); }
+  for (Player *player : this->players) {
+    player->add_match();
+  }
 }
 
-void Team::extract_players_in_role(string content, vector<Player *> &role) {
+void Team::extract_goalkeepers(string content) {
   stringstream content_ss(content);
   string name("");
   while (getline(content_ss, name, ';')) {
-    role.push_back(new Player(name));
+    this->players.push_back(new Goalkeeper(name));
+  }
+}
+
+void Team::extract_defenders(string content) {
+  stringstream content_ss(content);
+  string name("");
+  while (getline(content_ss, name, ';')) {
+    this->players.push_back(new Defender(name));
+  }
+}
+
+void Team::extract_midfielders(string content) {
+  stringstream content_ss(content);
+  string name("");
+  while (getline(content_ss, name, ';')) {
+    this->players.push_back(new Midfielder(name));
+  }
+}
+
+void Team::extract_forwards(string content) {
+  stringstream content_ss(content);
+  string name("");
+  while (getline(content_ss, name, ';')) {
+    this->players.push_back(new Forward(name));
   }
 }

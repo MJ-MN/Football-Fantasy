@@ -26,21 +26,20 @@ class Team {
 
   void set_goal(int goal);
   std::string get_name();
-  std::vector<Player *> &get_players_in_role(RoleTitle role);
+  std::vector<Player *> get_players_in_role(RoleTitle role);
   Player *find_player_by_name(std::string name);
   void extract_data(TeamTitle index, std::string content);
   void add_match();
 
  private:
-  void extract_players_in_role(std::string content,
-                               std::vector<Player *> &role);
+  void extract_goalkeepers(std::string content);
+  void extract_defenders(std::string content);
+  void extract_midfielders(std::string content);
+  void extract_forwards(std::string content);
 
   std::string name;
   std::vector<int> goals;
-  std::vector<Player *> goalkeepers;
-  std::vector<Player *> defenders;
-  std::vector<Player *> midfielders;
-  std::vector<Player *> forwards;
+  std::vector<Player *> players;
 };
 
 #endif /* __TEAM_HH */

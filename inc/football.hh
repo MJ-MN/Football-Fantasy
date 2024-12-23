@@ -37,8 +37,6 @@ class Football {
   void extract_teams_data(std::ifstream &ifs,
                           const std::vector<TeamTitle> &teams_title_pos);
   void print_best_players_in_role(RoleTitle role, int week_num);
-  void print_players_score(const std::pair<Player *, Player *> &palyers,
-                           RoleTitle role, int week_num);
 
   std::vector<Team *> teams;
   std::vector<Week *> weeks;

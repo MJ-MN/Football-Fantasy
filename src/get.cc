@@ -46,30 +46,11 @@ void Football::print_best_players_in_role(RoleTitle role, int week_num) {
     best_players.push_back(two_best_players.second);
   }
   two_best_players = find_two_best_players(best_players, week_num);
-  this->print_players_score(two_best_players, role, week_num);
-}
-
-void Football::print_players_score(const pair<Player *, Player *> &palyers,
-                                   RoleTitle role, int week_num) {
-  switch (role) {
-    case RoleTitle::kGoalkeeper:
-      cout << "Goalkeeper: " << palyers.first->get_name()
-           << " | score: " << palyers.first->get_score(week_num) << endl;
-      break;
-    case RoleTitle::kDefender:
-      cout << "Defender 1: " << palyers.first->get_name()
-           << " | score: " << palyers.first->get_score(week_num) << endl;
-      cout << "Defender 2: " << palyers.second->get_name()
-           << " | score: " << palyers.second->get_score(week_num) << endl;
-      break;
-    case RoleTitle::kMidfielder:
-      cout << "Midfielder: " << palyers.first->get_name()
-           << " | score: " << palyers.first->get_score(week_num) << endl;
-      break;
-    default:
-      cout << "Forward: " << palyers.first->get_name()
-           << " | score: " << palyers.first->get_score(week_num) << endl;
-      break;
+  if (role != RoleTitle::kDefender) {
+    two_best_players.first->print_name_score(week_num);
+  } else {
+    two_best_players.first->print_name_score(week_num, Rank::kFirstRank);
+    two_best_players.second->print_name_score(week_num, Rank::kSecondRank);
   }
 }
 
