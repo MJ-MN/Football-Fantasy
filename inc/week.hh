@@ -17,7 +17,7 @@ class Week {
   Week& operator=(const Week &);
   ~Week();
 
-  std::vector<MatchTitle> extract_matches_title(std::ifstream &ifs);
+  std::vector<MatchTitle> extract_matches_title(std::ifstream &ifs) const;
   void extract_matches_data(std::ifstream &ifs,
                             const std::vector<MatchTitle> &teams_title_pos,
                             Football &football);

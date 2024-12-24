@@ -25,7 +25,7 @@ Football::~Football() {
   }
 }
 
-vector<TeamTitle> Football::extract_teams_title(ifstream &ifs) {
+vector<TeamTitle> Football::extract_teams_title(ifstream &ifs) const {
   string line("");
   getline(ifs, line);
   line.pop_back();
@@ -67,7 +67,7 @@ void Football::extract_teams_data(ifstream &ifs,
   }
 }
 
-Team *Football::find_team_by_name(string name) {
+Team *Football::find_team_by_name(const string &name) const {
   for (Team *team : this->teams) {
     if (team->get_name() == name) {
       return team;
@@ -99,7 +99,7 @@ void Football::extract_weeks() {
   }
 }
 
-void Football::process_get_method(stringstream &ss) {
+void Football::process_get_method(stringstream &ss) const {
   string command("");
   ss >> command;
   if (command == "team_of_the_week") {
@@ -121,7 +121,7 @@ void Football::process_get_method(stringstream &ss) {
   }
 }
 
-void Football::process_post_method(stringstream &ss) {
+void Football::process_post_method(stringstream &ss) const {
   string command("");
   ss >> command;
   if (command == "signup") {
@@ -149,7 +149,7 @@ void Football::process_post_method(stringstream &ss) {
   }
 }
 
-void Football::process_put_method(stringstream &ss) {
+void Football::process_put_method(stringstream &ss) const {
   string command("");
   ss >> command;
   if (command == "") {
@@ -159,7 +159,7 @@ void Football::process_put_method(stringstream &ss) {
   }
 }
 
-void Football::process_delete_method(stringstream &ss) {
+void Football::process_delete_method(stringstream &ss) const {
   string command("");
   ss >> command;
   if (command == "") {

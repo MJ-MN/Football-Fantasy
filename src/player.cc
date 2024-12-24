@@ -7,21 +7,21 @@ using namespace std;
 
 Player::Player() : role(RoleTitle::kNoRole) {}
 
-Player::Player(string _name) : name(_name), role(RoleTitle::kNoRole) {}
+Player::Player(const string &_name) : name(_name), role(RoleTitle::kNoRole) {}
 
 void Player::set_score(float score) {
   this->scores.back() = score;
 }
 
-string Player::get_name() {
+string Player::get_name() const {
   return this->name;
 }
 
-RoleTitle Player::get_role() {
+RoleTitle Player::get_role() const {
   return this->role;
 }
 
-float Player::get_score(int week_num) {
+float Player::get_score(int week_num) const {
   return scores[week_num];
 }
 
@@ -33,15 +33,15 @@ Goalkeeper::Goalkeeper() : Player() {
   this->role = RoleTitle::kGoalkeeper;
 }
 
-Goalkeeper::Goalkeeper(string _name) : Player(_name) {
+Goalkeeper::Goalkeeper(const string &_name) : Player(_name) {
   this->role = RoleTitle::kGoalkeeper;
 }
 
-Player *Goalkeeper::clone() {
+Player *Goalkeeper::clone() const {
   return new Goalkeeper(*this);
 }
 
-void Goalkeeper::print_name_score(int week_num, Rank rank) {
+void Goalkeeper::print_name_score(int week_num, Rank rank) const {
   if (rank == Rank::kNoRank) {
     cout << "Goalkeeper: " << this->name;
   } else if (rank == Rank::kFirstRank) {
@@ -52,13 +52,13 @@ void Goalkeeper::print_name_score(int week_num, Rank rank) {
   cout << " | score: " << this->scores[week_num] << endl;
 }
 
-void Goalkeeper::print_name_role_score(int rank, int week_num) {
+void Goalkeeper::print_name_role_score(int rank, int week_num) const {
   cout << rank << ". name: " << this->name;
   cout << " | role: gk";
   cout << " | score: " << this->scores[week_num] << endl;
 }
 
-Player *Defender::clone() {
+Player *Defender::clone() const {
   return new Defender(*this);
 }
 
@@ -66,11 +66,11 @@ Defender::Defender() : Player() {
   this->role = RoleTitle::kDefender;
 }
 
-Defender::Defender(string _name) : Player(_name) {
+Defender::Defender(const string &_name) : Player(_name) {
   this->role = RoleTitle::kDefender;
 }
 
-void Defender::print_name_score(int week_num, Rank rank) {
+void Defender::print_name_score(int week_num, Rank rank) const {
   if (rank == Rank::kNoRank) {
     cout << "Defender: " << this->name;
   } else if (rank == Rank::kFirstRank) {
@@ -81,13 +81,13 @@ void Defender::print_name_score(int week_num, Rank rank) {
   cout << " | score: " << this->scores[week_num] << endl;
 }
 
-void Defender::print_name_role_score(int rank, int week_num) {
+void Defender::print_name_role_score(int rank, int week_num) const {
   cout << rank << ". name: " << this->name;
   cout << " | role: df";
   cout << " | score: " << this->scores[week_num] << endl;
 }
 
-Player *Midfielder::clone() {
+Player *Midfielder::clone() const {
   return new Midfielder(*this);
 }
 
@@ -95,11 +95,11 @@ Midfielder::Midfielder() : Player() {
   this->role = RoleTitle::kMidfielder;
 }
 
-Midfielder::Midfielder(string _name) : Player(_name) {
+Midfielder::Midfielder(const string &_name) : Player(_name) {
   this->role = RoleTitle::kMidfielder;
 }
 
-void Midfielder::print_name_score(int week_num, Rank rank) {
+void Midfielder::print_name_score(int week_num, Rank rank) const {
   if (rank == Rank::kNoRank) {
     cout << "Midfielder: " << this->name;
   } else if (rank == Rank::kFirstRank) {
@@ -110,13 +110,13 @@ void Midfielder::print_name_score(int week_num, Rank rank) {
   cout << " | score: " << this->scores[week_num] << endl;
 }
 
-void Midfielder::print_name_role_score(int rank, int week_num) {
+void Midfielder::print_name_role_score(int rank, int week_num) const {
   cout << rank << ". name: " << this->name;
   cout << " | role: md";
   cout << " | score: " << this->scores[week_num] << endl;
 }
 
-Player *Forward::clone() {
+Player *Forward::clone() const {
   return new Forward(*this);
 }
 
@@ -124,11 +124,11 @@ Forward::Forward() : Player() {
   this->role = RoleTitle::kForward;
 }
 
-Forward::Forward(string _name) : Player(_name) {
+Forward::Forward(const string &_name) : Player(_name) {
   this->role = RoleTitle::kForward;
 }
 
-void Forward::print_name_score(int week_num, Rank rank) {
+void Forward::print_name_score(int week_num, Rank rank) const {
   if (rank == Rank::kNoRank) {
     cout << "Forward: " << this->name;
   } else if (rank == Rank::kFirstRank) {
@@ -139,7 +139,7 @@ void Forward::print_name_score(int week_num, Rank rank) {
   cout << " | score: " << this->scores[week_num] << endl;
 }
 
-void Forward::print_name_role_score(int rank, int week_num) {
+void Forward::print_name_role_score(int rank, int week_num) const {
   cout << rank << ". name: " << this->name;
   cout << " | role: fw";
   cout << " | score: " << this->scores[week_num] << endl;

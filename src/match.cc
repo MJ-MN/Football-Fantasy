@@ -11,7 +11,7 @@
 
 using namespace std;
 
-void Match::extract_data(MatchTitle title, string content,
+void Match::extract_data(MatchTitle title, const string &content,
                          Football &football) {
   switch (title) {
     case MatchTitle::kMatchTeams:
@@ -37,7 +37,7 @@ void Match::extract_data(MatchTitle title, string content,
   }
 }
 
-void Match::extract_teams(std::string content, Football &football) {
+void Match::extract_teams(const std::string &content, Football &football) {
   stringstream content_ss(content);
   string name("");
   getline(content_ss, name, ':');
@@ -48,7 +48,7 @@ void Match::extract_teams(std::string content, Football &football) {
   this->secondTeam->add_match();
 }
 
-void Match::extract_result(std::string content) {
+void Match::extract_result(const std::string &content) {
   stringstream content_ss(content);
   string num("");
   getline(content_ss, num, ':');
@@ -57,7 +57,8 @@ void Match::extract_result(std::string content) {
   this->secondTeam->set_goal(stoi(num));
 }
 
-void Match::extract_players_in_field(string content, vector<Player *> &field) {
+void Match::extract_players_in_field(const string &content,
+                                     vector<Player *> &field) {
   stringstream content_ss(content);
   string name("");
   while (getline(content_ss, name, ';')) {
@@ -69,7 +70,7 @@ void Match::extract_players_in_field(string content, vector<Player *> &field) {
   }
 }
 
-void Match::extract_players_score(string content) {
+void Match::extract_players_score(const string &content) {
   stringstream content_ss(content);
   string player_s("");
   while (getline(content_ss, player_s, ';')) {

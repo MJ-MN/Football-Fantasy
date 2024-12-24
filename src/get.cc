@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void Football::get_team_of_the_week(stringstream &ss) {
+void Football::get_team_of_the_week(stringstream &ss) const {
   string qm(""), week_num_arg(""), week_num("");
   ss >> qm >> week_num_arg >> week_num;
   if (qm == "?" && week_num_arg != "" && week_num != "") {
@@ -24,7 +24,7 @@ void Football::get_team_of_the_week(stringstream &ss) {
   }
 }
 
-void Football::print_team_of_the_week(int week_num) {
+void Football::print_team_of_the_week(int week_num) const {
   if (week_num >= 1 && week_num <= this->weeks.size()) {
       cout << "Team of the week:" << endl;
       this->print_best_players_in_role(RoleTitle::kGoalkeeper, week_num - 1);
@@ -36,7 +36,7 @@ void Football::print_team_of_the_week(int week_num) {
   }
 }
 
-void Football::print_best_players_in_role(RoleTitle role, int week_num) {
+void Football::print_best_players_in_role(RoleTitle role, int week_num) const {
   vector<Player *> best_players;
   pair<Player *, Player *> two_best_players;
   for (Team *team : this->teams) {
@@ -54,7 +54,7 @@ void Football::print_best_players_in_role(RoleTitle role, int week_num) {
   }
 }
 
-void Football::get_players(stringstream &ss) {
+void Football::get_players(stringstream &ss) const {
   string team_name_arg(""), team_name(""), role_arg(""), ranks_arg("");
   ss >> team_name_arg >> team_name >> role_arg >> ranks_arg;
   if (team_name_arg != "" && team_name != "") {
@@ -70,18 +70,18 @@ void Football::get_players(stringstream &ss) {
   }
 }
 
-void Football::get_league_standings() {
+void Football::get_league_standings() const {
 
 }
 
-void Football::get_users_ranking() {
+void Football::get_users_ranking() const {
 
 }
 
-void Football::get_matches_result_league(stringstream &ss) {
+void Football::get_matches_result_league(stringstream &ss) const {
 
 } 
 
-void Football::get_squad(stringstream &ss) {
+void Football::get_squad(stringstream &ss) const {
   
 }

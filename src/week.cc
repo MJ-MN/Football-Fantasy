@@ -39,7 +39,7 @@ Week::~Week() {
   }
 }
 
-vector<MatchTitle> Week::extract_matches_title(ifstream &ifs) {
+vector<MatchTitle> Week::extract_matches_title(ifstream &ifs) const {
   string line("");
   getline(ifs, line);
   line.pop_back();

@@ -9,7 +9,7 @@
 
 using namespace std;
 
-Team::Team(string _name) : name(_name) {}
+Team::Team(const string &_name) : name(_name) {}
 
 Team::~Team() {
   for (auto player : this->players) {
@@ -43,11 +43,11 @@ void Team::set_goal(int goal) {
   this->goals.back() = goal;
 }
 
-string Team::get_name() {
+string Team::get_name() const {
   return this->name;
 }
 
-vector<Player *> Team::get_players_in_role(RoleTitle role) {
+vector<Player *> Team::get_players_in_role(RoleTitle role) const {
   vector<Player *> players_in_role;
   for (Player *player : this->players) {
     if (player->get_role() == role) {
@@ -57,7 +57,7 @@ vector<Player *> Team::get_players_in_role(RoleTitle role) {
   return players_in_role;
 }
 
-Player *Team::find_player_by_name(string name) {
+Player *Team::find_player_by_name(const string &name) const {
   for (Player *player : this->players) {
     if (player->get_name() == name) {
       return player;
@@ -66,7 +66,7 @@ Player *Team::find_player_by_name(string name) {
   return NULL;
 }
 
-void Team::extract_data(TeamTitle title, string content) {
+void Team::extract_data(TeamTitle title, const string &content) {
   switch (title) {
     case TeamTitle::kTeamName:
       this->name = content;
@@ -93,7 +93,7 @@ void Team::add_match() {
   }
 }
 
-void Team::extract_goalkeepers(string content) {
+void Team::extract_goalkeepers(const string &content) {
   stringstream content_ss(content);
   string name("");
   while (getline(content_ss, name, ';')) {
@@ -101,7 +101,7 @@ void Team::extract_goalkeepers(string content) {
   }
 }
 
-void Team::extract_defenders(string content) {
+void Team::extract_defenders(const string &content) {
   stringstream content_ss(content);
   string name("");
   while (getline(content_ss, name, ';')) {
@@ -109,7 +109,7 @@ void Team::extract_defenders(string content) {
   }
 }
 
-void Team::extract_midfielders(string content) {
+void Team::extract_midfielders(const string &content) {
   stringstream content_ss(content);
   string name("");
   while (getline(content_ss, name, ';')) {
@@ -117,7 +117,7 @@ void Team::extract_midfielders(string content) {
   }
 }
 
-void Team::extract_forwards(string content) {
+void Team::extract_forwards(const string &content) {
   stringstream content_ss(content);
   string name("");
   while (getline(content_ss, name, ';')) {

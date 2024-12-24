@@ -27,15 +27,15 @@ class Match {
   Match& operator=(const Match &) = default;
   ~Match() = default;
 
-  void extract_data(MatchTitle title, std::string content,
+  void extract_data(MatchTitle title, const std::string &content,
                     Football &football);
 
  private:
-  void extract_teams(std::string content, Football &football);
-  void extract_result(std::string content);
-  void extract_players_in_field(std::string content,
-                               std::vector<Player *> &field);
-  void extract_players_score(std::string content);
+  void extract_teams(const std::string &content, Football &football);
+  void extract_result(const std::string &content);
+  void extract_players_in_field(const std::string &content,
+                                std::vector<Player *> &field);
+  void extract_players_score(const std::string &content);
 
   Team *firstTeam;
   Team *secondTeam;
