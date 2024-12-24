@@ -24,6 +24,11 @@ enum class TeamTitle {
   kTeamForwards
 };
 
+struct Goal {
+  int goals_for;
+  int goals_against;
+};
+
 class Team {
  public:
   Team() = default;
@@ -32,13 +37,18 @@ class Team {
   Team &operator=(const Team &);
   ~Team();
 
-  void set_goal(int goal);
+  void set_goal(const Goal &goal);
   std::string get_name() const;
+  int get_score() const;
+  int get_goal_diff() const;
+  int get_goal_for() const;
+  int get_goal_against() const;
   std::vector<Player *> get_players_in_role(RoleTitle role) const;
   Player *find_player_by_name(const std::string &name) const;
   void extract_data(TeamTitle index, const std::string &content);
   void add_match();
   void print_players(std::stringstream &ss) const;
+  void print_score(int rank) const;
 
  private:
   void extract_goalkeepers(const std::string &content);
@@ -51,7 +61,7 @@ class Team {
                                  InOrderOf order) const;
 
   std::string name;
-  std::vector<int> goals;
+  std::vector<Goal *> goals;
   std::vector<Player *> players;
 };
 

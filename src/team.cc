@@ -14,6 +14,9 @@ using namespace std;
 Team::Team(const string &_name) : name(_name) {}
 
 Team::~Team() {
+  for (auto goal : this->goals) {
+    delete goal;
+  }
   for (auto player : this->players) {
     delete player;
   }
@@ -21,7 +24,9 @@ Team::~Team() {
 
 Team::Team(const Team &team) {
   this->name = team.name;
-  this->goals = team.goals;
+  for (auto goal : team.goals) {
+    this->goals.push_back(new Goal(*goal));
+  }
   for (auto player : team.players) {
     this->players.push_back(player->clone());
   }
@@ -29,11 +34,16 @@ Team::Team(const Team &team) {
 
 Team &Team::operator=(const Team &team) {
   if (this != &team) {
+    for (auto goal : this->goals) {
+      delete goal;
+    }
     for (auto player : this->players) {
       delete player;
     }
     this->name = team.name;
-    this->goals = team.goals;
+    for (auto goal : team.goals) {
+      this->goals.push_back(new Goal(*goal));
+    }
     for (auto player : team.players) {
       this->players.push_back(player->clone());
     }
@@ -41,12 +51,46 @@ Team &Team::operator=(const Team &team) {
   return *this;
 }
 
-void Team::set_goal(int goal) {
-  this->goals.back() = goal;
+void Team::set_goal(const Goal &goal) {
+  this->goals.back()->goals_for = goal.goals_for;
+  this->goals.back()->goals_against = goal.goals_against;
 }
 
 string Team::get_name() const {
   return this->name;
+}
+
+int Team::get_score() const {
+  int score = 0;
+  for (Goal *goal : this->goals) {
+    score += (goal->goals_for > goal->goals_against) ? 3 :
+             (goal->goals_for < goal->goals_against) ? 0 : 1;
+  }
+  return score;
+}
+
+int Team::get_goal_diff() const {
+  int goal_diff = 0;
+  for (Goal *goal : this->goals) {
+    goal_diff += goal->goals_for - goal->goals_against;
+  }
+  return goal_diff;
+}
+
+int Team::get_goal_for() const {
+  int goal_for = 0;
+  for (Goal *goal : this->goals) {
+    goal_for += goal->goals_for;
+  }
+  return goal_for;
+}
+
+int Team::get_goal_against() const {
+  int goal_against = 0;
+  for (Goal *goal : this->goals) {
+    goal_against += goal->goals_against;
+  }
+  return goal_against;
 }
 
 vector<Player *> Team::get_players_in_role(RoleTitle role) const {
@@ -89,7 +133,7 @@ void Team::extract_data(TeamTitle title, const string &content) {
 }
 
 void Team::add_match() {
-  this->goals.push_back(-1);
+  this->goals.push_back(new Goal{-1, -1});
   for (Player *player : this->players) {
     player->add_match();
   }
@@ -174,4 +218,11 @@ void Team::print_players_in_order_of(vector<Player *> _players, InOrderOf order)
   for (int i = 0; i < _players.size(); ++i) {
     _players[i]->print_name_role_score(i + 1);
   }
+}
+
+void Team::print_score(int rank) const {
+  cout << rank << ". " << this->name;
+  cout << ": score: " << this->get_score();
+  cout << " | GF: " << this->get_goal_for();
+  cout << " | GA: " << this->get_goal_against() << endl;
 }

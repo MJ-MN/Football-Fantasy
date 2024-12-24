@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "player.hh"
+#include "team.hh"
 
 using namespace std;
 
@@ -29,4 +30,20 @@ string replace_underscore(string str) {
     str[pos] = ' ';
   }
   return str;
+}
+
+bool standings_comparator(Team *team1, Team *team2) {
+  if (team1->get_score() == team2->get_score()) {
+    if (team1->get_goal_diff() == team2->get_goal_diff()) {
+      if (team1->get_goal_for() == team2->get_goal_for()) {
+        return team1->get_name() > team2->get_name();
+      } else {
+        return team1->get_goal_for() > team2->get_goal_for();
+      }
+    } else {
+      return team1->get_goal_diff() > team2->get_goal_diff();
+    }
+  } else {
+    return team1->get_score() > team2->get_score();
+  }
 }

@@ -50,11 +50,11 @@ void Match::extract_teams(const std::string &content, Football &football) {
 
 void Match::extract_result(const std::string &content) {
   stringstream content_ss(content);
-  string num("");
-  getline(content_ss, num, ':');
-  this->firstTeam->set_goal(stoi(num));
-  getline(content_ss, num);
-  this->secondTeam->set_goal(stoi(num));
+  string num1(""), num2("");
+  getline(content_ss, num1, ':');
+  getline(content_ss, num2);
+  this->firstTeam->set_goal(Goal{stoi(num1), stoi(num2)});
+  this->secondTeam->set_goal(Goal{stoi(num2), stoi(num1)});
 }
 
 void Match::extract_players_in_field(const string &content,

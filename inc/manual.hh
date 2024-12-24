@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "player.hh"
+#include "team.hh"
 
 const std::string OK = "OK";
 const std::string BAD_REQUEST = "Bad Request";
@@ -16,5 +17,6 @@ const std::string EMPTY = "Empty";
 std::pair<Player *, Player *> find_two_best_players(
     const std::vector<Player *> &players, int week_num);
 std::string replace_underscore(std::string str);
+bool standings_comparator(Team *team1, Team *team2);
 
 #endif /* __MANUAL_HH */

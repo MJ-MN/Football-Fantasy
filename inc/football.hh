@@ -34,6 +34,7 @@ class Football {
   void print_best_players_in_role(RoleTitle role, int week_num) const;
   void get_players(std::stringstream &ss) const;
   void get_league_standings() const;
+  void print_league_standings() const;
   void get_users_ranking() const;
   void get_matches_result_league(std::stringstream &ss) const;
   void get_squad(std::stringstream &ss) const;

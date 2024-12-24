@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -70,7 +71,16 @@ void Football::get_players(stringstream &ss) const {
 }
 
 void Football::get_league_standings() const {
+  cout << "league standings:" << endl;
+  this->print_league_standings();
+}
 
+void Football::print_league_standings() const {
+  vector<Team *> _teams = this->teams;
+  sort(_teams.begin(), _teams.end(), standings_comparator);
+  for (int i = 0; i < _teams.size(); ++i) {
+    _teams[i]->print_score(i + 1);
+  }
 }
 
 void Football::get_users_ranking() const {
