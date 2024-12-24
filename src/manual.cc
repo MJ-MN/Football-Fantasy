@@ -1,4 +1,4 @@
-#include <set>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -21,4 +21,12 @@ pair<Player *, Player *> find_two_best_players(
     ++temp_player_it;
   }
   return pair<Player *, Player *>(*first_player_it, *second_player_it);
+}
+
+string replace_underscore(string str) {
+  size_t pos = str.find('_');
+  if (pos != string::npos) {
+    str[pos] = ' ';
+  }
+  return str;
 }

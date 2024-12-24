@@ -15,5 +15,6 @@ const std::string EMPTY = "Empty";
 
 std::pair<Player *, Player *> find_two_best_players(
     const std::vector<Player *> &players, int week_num);
+std::string replace_underscore(std::string str);
 
 #endif /* __MANUAL_HH */

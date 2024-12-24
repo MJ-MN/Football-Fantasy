@@ -1,3 +1,5 @@
+#include <algorithm>
+#include <iostream>
 #include <sstream>
 #include <string>
 #include <utility>
@@ -93,6 +95,23 @@ void Team::add_match() {
   }
 }
 
+void Team::print_players(stringstream &ss) const {
+  string role_or_ranks_arg("");
+  ss >> role_or_ranks_arg;
+  if (role_or_ranks_arg != "") {
+    if (role_or_ranks_arg == "gk" || role_or_ranks_arg == "df" ||
+        role_or_ranks_arg == "md" || role_or_ranks_arg == "fw") {
+      this->print_players_in_role(ss, role_or_ranks_arg);
+    } else if (role_or_ranks_arg == "ranks") {
+      this->print_players_in_order_of(this->players, InOrderOf::kScore);
+    } else {
+      cout << BAD_REQUEST << endl;
+    }
+  } else {
+    this->print_players_in_order_of(this->players, InOrderOf::kName);
+  }
+}
+
 void Team::extract_goalkeepers(const string &content) {
   stringstream content_ss(content);
   string name("");
@@ -122,5 +141,37 @@ void Team::extract_forwards(const string &content) {
   string name("");
   while (getline(content_ss, name, ';')) {
     this->players.push_back(new Forward(name));
+  }
+}
+
+void Team::print_players_in_role(stringstream &ss, const string &role) const {
+  string ranks("");
+  ss >> ranks;
+  vector<Player *> _players =
+      this->get_players_in_role(kRoleMap.find(role)->second);
+  if (ranks == "ranks") {
+    this->print_players_in_order_of(_players, InOrderOf::kScore);
+  } else if (ranks == "") {
+    this->print_players_in_order_of(_players, InOrderOf::kName);
+  } else {
+    cout << BAD_REQUEST << endl;
+  }
+}
+
+void Team::print_players_in_order_of(vector<Player *> _players, InOrderOf order) const {
+  cout << "list of players:" << endl;
+  if (order == InOrderOf::kName) {
+    sort(_players.begin(), _players.end(), [](Player *player1,
+                                              Player *player2) {
+      return player1->get_name() < player2->get_name();
+    });
+  } else {
+    sort(_players.begin(), _players.end(), [](Player *player1,
+                                              Player *player2) {
+      return player1->get_avg_score() > player2->get_avg_score();
+    });
+  }
+  for (int i = 0; i < _players.size(); ++i) {
+    _players[i]->print_name_role_score(i + 1);
   }
 }

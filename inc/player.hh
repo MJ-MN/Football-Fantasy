@@ -18,6 +18,11 @@ enum class Rank {
   kSecondRank
 };
 
+enum class InOrderOf {
+  kName = 0,
+  kScore
+};
+
 class Player {
  public:
   Player();
@@ -29,11 +34,12 @@ class Player {
   std::string get_name() const;
   RoleTitle get_role() const;
   float get_score(int week_num) const;
+  float get_avg_score() const;
   void add_match();
   virtual Player *clone() const = 0;
   virtual void print_name_score(int week_num,
                                 Rank rank = Rank::kNoRank) const = 0;
-  virtual void print_name_role_score(int rank, int week_num) const = 0;
+  virtual void print_name_role_score(int rank) const = 0;
 
  protected:
   std::string name;
@@ -50,7 +56,7 @@ class Goalkeeper : public Player {
 
   Player *clone() const;
   void print_name_score(int week_num, Rank rank = Rank::kNoRank) const;
-  void print_name_role_score(int rank, int week_num) const;
+  void print_name_role_score(int rank) const;
 };
 
 class Defender : public Player {
@@ -62,7 +68,7 @@ class Defender : public Player {
 
   Player *clone() const;
   void print_name_score(int week_num, Rank rank = Rank::kNoRank) const;
-  void print_name_role_score(int rank, int week_num) const;
+  void print_name_role_score(int rank) const;
 };
 
 class Midfielder : public Player {
@@ -74,7 +80,7 @@ class Midfielder : public Player {
 
   Player *clone() const;
   void print_name_score(int week_num, Rank rank = Rank::kNoRank) const;
-  void print_name_role_score(int rank, int week_num) const;
+  void print_name_role_score(int rank) const;
 };
 
 class Forward : public Player {
@@ -86,7 +92,7 @@ class Forward : public Player {
 
   Player *clone() const;
   void print_name_score(int week_num, Rank rank = Rank::kNoRank) const;
-  void print_name_role_score(int rank, int week_num) const;
+  void print_name_role_score(int rank) const;
 };
 
 #endif /* __PLAYER_HH */

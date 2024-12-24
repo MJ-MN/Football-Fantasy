@@ -1,3 +1,4 @@
+#include <iomanip>
 #include <iostream>
 #include <string>
 
@@ -23,6 +24,18 @@ RoleTitle Player::get_role() const {
 
 float Player::get_score(int week_num) const {
   return scores[week_num];
+}
+
+float Player::get_avg_score() const {
+  float avg_score = 0.0f;
+  int match_count = 0;
+  for (float score : this->scores) {
+    if (score > 0) {
+      avg_score += score;
+      ++match_count;
+    }
+  }
+  return avg_score / match_count;
 }
 
 void Player::add_match() {
@@ -52,10 +65,10 @@ void Goalkeeper::print_name_score(int week_num, Rank rank) const {
   cout << " | score: " << this->scores[week_num] << endl;
 }
 
-void Goalkeeper::print_name_role_score(int rank, int week_num) const {
+void Goalkeeper::print_name_role_score(int rank) const {
   cout << rank << ". name: " << this->name;
   cout << " | role: gk";
-  cout << " | score: " << this->scores[week_num] << endl;
+  cout << " | score: " << this->get_avg_score() << endl;
 }
 
 Player *Defender::clone() const {
@@ -81,10 +94,10 @@ void Defender::print_name_score(int week_num, Rank rank) const {
   cout << " | score: " << this->scores[week_num] << endl;
 }
 
-void Defender::print_name_role_score(int rank, int week_num) const {
+void Defender::print_name_role_score(int rank) const {
   cout << rank << ". name: " << this->name;
   cout << " | role: df";
-  cout << " | score: " << this->scores[week_num] << endl;
+  cout << " | score: " << this->get_avg_score() << endl;
 }
 
 Player *Midfielder::clone() const {
@@ -110,10 +123,10 @@ void Midfielder::print_name_score(int week_num, Rank rank) const {
   cout << " | score: " << this->scores[week_num] << endl;
 }
 
-void Midfielder::print_name_role_score(int rank, int week_num) const {
+void Midfielder::print_name_role_score(int rank) const {
   cout << rank << ". name: " << this->name;
   cout << " | role: md";
-  cout << " | score: " << this->scores[week_num] << endl;
+  cout << " | score: " << this->get_avg_score() << endl;
 }
 
 Player *Forward::clone() const {
@@ -139,8 +152,9 @@ void Forward::print_name_score(int week_num, Rank rank) const {
   cout << " | score: " << this->scores[week_num] << endl;
 }
 
-void Forward::print_name_role_score(int rank, int week_num) const {
+void Forward::print_name_role_score(int rank) const {
   cout << rank << ". name: " << this->name;
   cout << " | role: fw";
-  cout << " | score: " << this->scores[week_num] << endl;
+  cout << " | score: " << fixed << setprecision(1);
+  cout << this->get_avg_score() << endl;
 }

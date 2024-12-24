@@ -55,16 +55,15 @@ void Football::print_best_players_in_role(RoleTitle role, int week_num) const {
 }
 
 void Football::get_players(stringstream &ss) const {
-  string team_name_arg(""), team_name(""), role_arg(""), ranks_arg("");
-  ss >> team_name_arg >> team_name >> role_arg >> ranks_arg;
-  if (team_name_arg != "" && team_name != "") {
-    if (team_name_arg == "team_name") {
-
+  string qm(""), team_name_arg(""), team_name("");
+  ss >> qm >> team_name_arg >> team_name;
+  if (qm == "?" && team_name_arg == "team_name" && team_name != "") {
+    Team *team = this->find_team_by_name(replace_underscore(team_name));
+    if (team != NULL) {
+      team->print_players(ss);
     } else {
-      cout << BAD_REQUEST << endl;
+      cout << NOT_FOUND << endl;
     }
-  } else if (team_name_arg == "" && team_name == "") {
-
   } else {
     cout << BAD_REQUEST << endl;
   }
