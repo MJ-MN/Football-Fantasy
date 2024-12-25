@@ -21,6 +21,9 @@ Football::~Football() {
   for (auto week : this->weeks) {
     delete week;
   }
+  for (auto user : this->users) {
+    delete user;
+  }
 }
 
 vector<TeamTitle> Football::extract_teams_title(ifstream &ifs) const {
