@@ -29,6 +29,7 @@ class Match {
 
   void extract_data(MatchTitle title, const std::string &content,
                     Football &football);
+  void print_result(int week_num) const;
 
  private:
   void extract_teams(const std::string &content, Football &football);

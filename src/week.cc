@@ -83,3 +83,9 @@ void Week::extract_matches_data(ifstream &ifs,
     this->matches.push_back(match);
   }
 }
+
+void Week::print_matches_result(int week_num) const {
+  for (Match *match : this->matches) {
+    match->print_result(week_num);
+  }
+}

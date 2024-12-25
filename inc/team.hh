@@ -40,9 +40,10 @@ class Team {
   void set_goal(const Goal &goal);
   std::string get_name() const;
   int get_score() const;
-  int get_goal_diff() const;
-  int get_goal_for() const;
-  int get_goal_against() const;
+  int get_goals_diff() const;
+  int get_goal_for(int week_num) const;
+  int get_goals_for() const;
+  int get_goals_against() const;
   std::vector<Player *> get_players_in_role(RoleTitle role) const;
   Player *find_player_by_name(const std::string &name) const;
   void extract_data(TeamTitle index, const std::string &content);

@@ -1,3 +1,4 @@
+#include <iostream>
 #include <sstream>
 #include <string>
 #include <utility>
@@ -87,3 +88,9 @@ void Match::extract_players_score(const string &content) {
   }
 }
 
+void Match::print_result(int week_num) const {
+  cout << this->firstTeam->get_name();
+  cout << " " << this->firstTeam->get_goal_for(week_num);
+  cout << " | " << this->secondTeam->get_name();
+  cout << " " << this->secondTeam->get_goal_for(week_num) << endl;
+}

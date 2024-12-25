@@ -34,14 +34,14 @@ string replace_underscore(string str) {
 
 bool standings_comparator(Team *team1, Team *team2) {
   if (team1->get_score() == team2->get_score()) {
-    if (team1->get_goal_diff() == team2->get_goal_diff()) {
-      if (team1->get_goal_for() == team2->get_goal_for()) {
-        return team1->get_name() > team2->get_name();
+    if (team1->get_goals_diff() == team2->get_goals_diff()) {
+      if (team1->get_goals_for() == team2->get_goals_for()) {
+        return team1->get_name() < team2->get_name();
       } else {
-        return team1->get_goal_for() > team2->get_goal_for();
+        return team1->get_goals_for() > team2->get_goals_for();
       }
     } else {
-      return team1->get_goal_diff() > team2->get_goal_diff();
+      return team1->get_goals_diff() > team2->get_goals_diff();
     }
   } else {
     return team1->get_score() > team2->get_score();

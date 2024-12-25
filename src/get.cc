@@ -14,7 +14,7 @@ void Football::get_team_of_the_week(stringstream &ss) const {
   ss >> qm >> week_num_arg >> week_num;
   if (qm == "?" && week_num_arg != "" && week_num != "") {
     if (week_num_arg == "week_num") {
-      this->print_team_of_the_week(stoi(week_num));
+      this->print_team_of_the_week(stoi(week_num) - 1);
     } else {
       cout << BAD_REQUEST << endl;
     }
@@ -26,12 +26,12 @@ void Football::get_team_of_the_week(stringstream &ss) const {
 }
 
 void Football::print_team_of_the_week(int week_num) const {
-  if (week_num >= 1 && week_num <= this->weeks.size()) {
+  if (week_num >= 0 && week_num < this->weeks.size()) {
       cout << "Team of the week:" << endl;
-      this->print_best_players_in_role(RoleTitle::kGoalkeeper, week_num - 1);
-      this->print_best_players_in_role(RoleTitle::kDefender, week_num - 1);
-      this->print_best_players_in_role(RoleTitle::kMidfielder, week_num - 1);
-      this->print_best_players_in_role(RoleTitle::kForward, week_num - 1);
+      this->print_best_players_in_role(RoleTitle::kGoalkeeper, week_num);
+      this->print_best_players_in_role(RoleTitle::kDefender, week_num);
+      this->print_best_players_in_role(RoleTitle::kMidfielder, week_num);
+      this->print_best_players_in_role(RoleTitle::kForward, week_num);
   } else {
     cout << BAD_REQUEST << endl;
   }
@@ -88,8 +88,28 @@ void Football::get_users_ranking() const {
 }
 
 void Football::get_matches_result_league(stringstream &ss) const {
+  string qm(""), week_num_arg(""), week_num("");
+  ss >> qm >> week_num_arg >> week_num;
+  if (qm == "?" && week_num_arg != "" && week_num != "") {
+    if (week_num_arg == "week_num") {
+      this->print_matches_result_league(stoi(week_num) - 1);
+    } else {
+      cout << BAD_REQUEST << endl;
+    }
+  } else if (qm == "" && week_num_arg == "" && week_num == "") {
+    this->print_matches_result_league(this->last_week);
+  } else {
+    cout << BAD_REQUEST << endl;
+  }
+}
 
-} 
+void Football::print_matches_result_league(int week_num) const {
+  if (week_num >= 0 && week_num < this->weeks.size()) {
+    this->weeks[week_num]->print_matches_result(week_num);
+  } else {
+    cout << BAD_REQUEST << endl;
+  }
+}
 
 void Football::get_squad(stringstream &ss) const {
   

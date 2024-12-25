@@ -37,6 +37,7 @@ class Football {
   void print_league_standings() const;
   void get_users_ranking() const;
   void get_matches_result_league(std::stringstream &ss) const;
+  void print_matches_result_league(int week_num) const;
   void get_squad(std::stringstream &ss) const;
 
   std::vector<Team *> teams;

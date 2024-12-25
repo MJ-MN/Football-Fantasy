@@ -69,7 +69,7 @@ int Team::get_score() const {
   return score;
 }
 
-int Team::get_goal_diff() const {
+int Team::get_goals_diff() const {
   int goal_diff = 0;
   for (Goal *goal : this->goals) {
     goal_diff += goal->goals_for - goal->goals_against;
@@ -77,7 +77,11 @@ int Team::get_goal_diff() const {
   return goal_diff;
 }
 
-int Team::get_goal_for() const {
+int Team::get_goal_for(int week_num) const {
+  return this->goals[week_num]->goals_for;
+}
+
+int Team::get_goals_for() const {
   int goal_for = 0;
   for (Goal *goal : this->goals) {
     goal_for += goal->goals_for;
@@ -85,7 +89,7 @@ int Team::get_goal_for() const {
   return goal_for;
 }
 
-int Team::get_goal_against() const {
+int Team::get_goals_against() const {
   int goal_against = 0;
   for (Goal *goal : this->goals) {
     goal_against += goal->goals_against;
@@ -223,6 +227,6 @@ void Team::print_players_in_order_of(vector<Player *> _players, InOrderOf order)
 void Team::print_score(int rank) const {
   cout << rank << ". " << this->name;
   cout << ": score: " << this->get_score();
-  cout << " | GF: " << this->get_goal_for();
-  cout << " | GA: " << this->get_goal_against() << endl;
+  cout << " | GF: " << this->get_goals_for();
+  cout << " | GA: " << this->get_goals_against() << endl;
 }

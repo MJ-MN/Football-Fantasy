@@ -14,7 +14,7 @@
 using namespace std;
 
 Football::Football()
-    : last_week(1) {}
+    : last_week(0) {}
 
 Football::~Football() {
   for (auto team : this->teams) {

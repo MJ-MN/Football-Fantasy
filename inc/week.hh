@@ -21,6 +21,7 @@ class Week {
   void extract_matches_data(std::ifstream &ifs,
                             const std::vector<MatchTitle> &teams_title_pos,
                             Football &football);
+  void print_matches_result(int week_num) const;
 
  private:
   std::vector<Match*> matches;
