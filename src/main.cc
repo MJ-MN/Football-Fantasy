@@ -21,7 +21,7 @@ int main() {
     if (method == "GET") {
       football.process_get_method(line_ss);
     } else if (method == "POST") {
-
+      football.process_post_method(line_ss);
     } else if (method == "PUT") {
 
     } else if (method == "DELETE") {

@@ -6,20 +6,19 @@ BUILDDIR    := build
 BINDIR      := bin
 EXE_FILE    := $(BINDIR)/$(PROJECT_NAME)
 SOURCES     := $(shell find $(SRCDIR) -type f -name *.c*)
-HEDEARS     := $(shell find $(INCDIR) -type f -name *.h*)
 OBJECTS     := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(addsuffix .o,$(basename $(SOURCES))))
-INC         := -I inc
+INC         := -I $(INCDIR)
 
 $(EXE_FILE): $(BUILDDIR) $(BINDIR) $(OBJECTS)
 	$(CC) -o $(EXE_FILE) $(OBJECTS)
 
 $(BUILDDIR):
-	mkdir $(BUILDDIR)
+	mkdir -p $(BUILDDIR)
 
 $(BINDIR):
-	mkdir $(BINDIR)
+	mkdir -p $(BINDIR)
 
-$(BUILDDIR)/%.o: $(SRCDIR)/%.c* $(INCDIR)/%.h*
+$(BUILDDIR)/%.o: $(SRCDIR)/%.c*
 	@mkdir -p $(dir $@)
 	$(CC) $(INC) -c $< -o $@
 	@$(CC) $(INC) -M $< -MT $@ > $(@:.o=.td)
@@ -29,4 +28,4 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.c* $(INCDIR)/%.h*
 	@rm -f $(@:.o=.td)
 
 clean:
-	rm -r $(BUILDDIR) $(BINDIR)
+	rm -rf $(BUILDDIR) $(BINDIR)

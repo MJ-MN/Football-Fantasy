@@ -8,6 +8,7 @@
 
 #include "player.hh"
 #include "team.hh"
+#include "user.hh"
 #include "week.hh"
 
 class Football {
@@ -20,8 +21,9 @@ class Football {
   void extract_teams();
   void extract_weeks();
   Team *find_team_by_name(const std::string &name) const;
+  User *find_user_by_name(const std::string &name) const;
   void process_get_method(std::stringstream &ss) const;
-  void process_post_method(std::stringstream &ss) const;
+  void process_post_method(std::stringstream &ss);
   void process_put_method(std::stringstream &ss) const;
   void process_delete_method(std::stringstream &ss) const;
 
@@ -39,9 +41,20 @@ class Football {
   void get_matches_result_league(std::stringstream &ss) const;
   void print_matches_result_league(int week_num) const;
   void get_squad(std::stringstream &ss) const;
+  void post_signup(std::stringstream &ss);
+  void signup_user(std::stringstream &ss, const std::string &name);
+  void post_login(std::stringstream &ss);
+  void post_register_admin(std::stringstream &ss);
+  void post_logout();
+  void post_sell_player(std::stringstream &ss);
+  void post_buy_player(std::stringstream &ss);
+  void post_close_transfer_window();
+  void post_open_transfer_window();
+  void post_pass_week();
 
   std::vector<Team *> teams;
   std::vector<Week *> weeks;
+  std::vector<User *> users;
   int last_week;
 };
 

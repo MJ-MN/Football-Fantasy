@@ -3,12 +3,10 @@
 #include <sstream>
 #include <vector>
 
-#include "delete.hh"
 #include "football.hh"
 #include "manual.hh"
-#include "post.hh"
-#include "put.hh"
 #include "team.hh"
+#include "user.hh"
 #include "week.hh"
 
 using namespace std;
@@ -76,6 +74,15 @@ Team *Football::find_team_by_name(const string &name) const {
   return NULL;
 }
 
+User *Football::find_user_by_name(const std::string &name) const {
+  for (User *user : this->users) {
+    if (user->get_name() == name) {
+      return user;
+    }
+  }
+  return NULL; 
+}
+
 void Football::extract_teams() {
   ifstream primier_league("data/premier_league.csv");
   vector<TeamTitle> teams_title_pos = this->extract_teams_title(primier_league);
@@ -121,27 +128,27 @@ void Football::process_get_method(stringstream &ss) const {
   }
 }
 
-void Football::process_post_method(stringstream &ss) const {
+void Football::process_post_method(stringstream &ss) {
   string command("");
   ss >> command;
   if (command == "signup") {
-    post_signup(ss);
+    this->post_signup(ss);
   } else if (command == "login") {
-    post_login(ss);
+    this->post_login(ss);
   } else if (command == "register_admin") {
-    post_register_admin(ss);
+    this->post_register_admin(ss);
   } else if (command == "logout") {
-    post_logout();
+    this->post_logout();
   } else if (command == "sell_player") {
-    post_sell_player(ss);
+    this->post_sell_player(ss);
   } else if (command == "buy_player") {
-    post_buy_player(ss);
+    this->post_buy_player(ss);
   } else if (command == "close_transfer_window") {
-    post_close_transfer_window();
+    this->post_close_transfer_window();
   } else if (command == "open_transfer_window") {
-    post_open_transfer_window();
+    this->post_open_transfer_window();
   } else if (command == "pass_week") {
-    post_pass_week();
+    this->post_pass_week();
   } else if (command == "") {
     cout << BAD_REQUEST << endl;
   } else {
