@@ -54,6 +54,7 @@ class Football {
   void post_close_transfer_window();
   void post_open_transfer_window();
   void post_pass_week();
+  User *who_is_logged_in() const;
 
   User *admin;
   std::vector<Team *> teams;

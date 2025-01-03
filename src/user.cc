@@ -20,6 +20,10 @@ string User::get_password() const {
   return this->password;
 }
 
+bool User::is_logged_in() const {
+  return this->logged_in;
+}
+
 void User::login(stringstream &ss) {
   string password_arg(""), password("");
   ss >> password_arg >> password;
@@ -33,4 +37,8 @@ void User::login(stringstream &ss) {
   } else {
     cout << kBadRequest << endl;
   }
+}
+
+void User::logout() {
+  this->logged_in = false;
 }

@@ -181,3 +181,15 @@ void Football::process_delete_method(stringstream &ss) const {
     cout << kNotFound << endl;
   }
 }
+
+User *Football::who_is_logged_in() const {
+  if (this->admin->is_logged_in()) {
+    return this->admin;
+  }
+  for (User *user : this->users) {
+    if (user->is_logged_in()) {
+      return user;
+    }
+  }
+  return NULL;
+}
