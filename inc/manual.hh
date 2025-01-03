@@ -8,11 +8,11 @@
 #include "player.hh"
 #include "team.hh"
 
-const std::string OK = "OK";
-const std::string BAD_REQUEST = "Bad Request";
-const std::string PERMISSION_DENIED = "Permission Denied";
-const std::string NOT_FOUND = "Not Found";
-const std::string EMPTY = "Empty";
+const std::string kOk = "OK";
+const std::string kBadRequest = "Bad Request";
+const std::string kPermissionDenied = "Permission Denied";
+const std::string kNotFound = "Not Found";
+const std::string kEmpty = "Empty";
 
 std::pair<Player *, Player *> find_two_best_players(
     const std::vector<Player *> &players, int week_num);

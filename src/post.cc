@@ -14,13 +14,13 @@ void Football::post_signup(std::stringstream &ss) {
       if (this->find_user_by_name(team_name) == NULL) {
         this->signup_user(ss, team_name);
       } else {
-        cout << BAD_REQUEST << endl;
+        cout << kBadRequest << endl;
       }
     } else {
-      cout << BAD_REQUEST << endl;
+      cout << kBadRequest << endl;
     }
   } else {
-    cout << BAD_REQUEST << endl;
+    cout << kBadRequest << endl;
   }
 }
 
@@ -29,9 +29,9 @@ void Football::signup_user(stringstream &ss, const string &username) {
   ss >> password_arg >> password;
   if (password_arg == "password" && password != "") {
     this->users.push_back(new User(username, password));
-    cout << OK << endl;
+    cout << kOk << endl;
   } else {
-    cout << BAD_REQUEST << endl;
+    cout << kBadRequest << endl;
   }
 }
 
@@ -42,20 +42,34 @@ void Football::post_login(std::stringstream &ss) {
     if (team_name_arg == "team_name") {
       User *user = this->find_user_by_name(team_name);
       if (user != NULL) {
-        user->login_user(ss);
+        user->login(ss);
       } else {
-        cout << NOT_FOUND << endl;
+        cout << kNotFound << endl;
       }
     } else {
-      cout << BAD_REQUEST << endl;
+      cout << kBadRequest << endl;
     }
   } else {
-    cout << BAD_REQUEST << endl;
+    cout << kBadRequest << endl;
   }
 }
 
 void Football::post_register_admin(std::stringstream &ss) {
-
+  string qm(""), username_arg(""), username("");
+  ss >> qm >> username_arg >> username;
+  if (qm == "?" && username_arg != "" && username != "") {
+    if (username_arg == "username") {
+      if (username == this->admin->get_name()) {
+        this->admin->login(ss);
+      } else {
+        cout << kBadRequest << endl;
+      }
+    } else {
+      cout << kBadRequest << endl;
+    }
+  } else {
+    cout << kBadRequest << endl;
+  }
 }
 
 void Football::post_logout() {

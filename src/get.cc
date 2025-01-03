@@ -16,12 +16,12 @@ void Football::get_team_of_the_week(stringstream &ss) const {
     if (week_num_arg == "week_num") {
       this->print_team_of_the_week(stoi(week_num) - 1);
     } else {
-      cout << BAD_REQUEST << endl;
+      cout << kBadRequest << endl;
     }
   } else if (qm == "" && week_num_arg == "" && week_num == "") {
     this->print_team_of_the_week(this->last_week);
   } else {
-    cout << BAD_REQUEST << endl;
+    cout << kBadRequest << endl;
   }
 }
 
@@ -33,7 +33,7 @@ void Football::print_team_of_the_week(int week_num) const {
       this->print_best_players_in_role(RoleTitle::kMidfielder, week_num);
       this->print_best_players_in_role(RoleTitle::kForward, week_num);
   } else {
-    cout << BAD_REQUEST << endl;
+    cout << kBadRequest << endl;
   }
 }
 
@@ -63,10 +63,10 @@ void Football::get_players(stringstream &ss) const {
     if (team != NULL) {
       team->print_players(ss);
     } else {
-      cout << NOT_FOUND << endl;
+      cout << kNotFound << endl;
     }
   } else {
-    cout << BAD_REQUEST << endl;
+    cout << kBadRequest << endl;
   }
 }
 
@@ -94,12 +94,12 @@ void Football::get_matches_result_league(stringstream &ss) const {
     if (week_num_arg == "week_num") {
       this->print_matches_result_league(stoi(week_num) - 1);
     } else {
-      cout << BAD_REQUEST << endl;
+      cout << kBadRequest << endl;
     }
   } else if (qm == "" && week_num_arg == "" && week_num == "") {
     this->print_matches_result_league(this->last_week);
   } else {
-    cout << BAD_REQUEST << endl;
+    cout << kBadRequest << endl;
   }
 }
 
@@ -107,7 +107,7 @@ void Football::print_matches_result_league(int week_num) const {
   if (week_num >= 0 && week_num < this->weeks.size()) {
     this->weeks[week_num]->print_matches_result(week_num);
   } else {
-    cout << BAD_REQUEST << endl;
+    cout << kBadRequest << endl;
   }
 }
 

@@ -153,7 +153,7 @@ void Team::print_players(stringstream &ss) const {
     } else if (role_or_ranks_arg == "ranks") {
       this->print_players_in_order_of(this->players, InOrderOf::kScore);
     } else {
-      cout << BAD_REQUEST << endl;
+      cout << kBadRequest << endl;
     }
   } else {
     this->print_players_in_order_of(this->players, InOrderOf::kName);
@@ -202,7 +202,7 @@ void Team::print_players_in_role(stringstream &ss, const string &role) const {
   } else if (ranks == "") {
     this->print_players_in_order_of(_players, InOrderOf::kName);
   } else {
-    cout << BAD_REQUEST << endl;
+    cout << kBadRequest << endl;
   }
 }
 

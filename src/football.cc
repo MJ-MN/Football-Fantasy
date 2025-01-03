@@ -12,9 +12,12 @@
 using namespace std;
 
 Football::Football()
-    : last_week(0) {}
+    : last_week(0) {
+  this->admin = new User(kAdminUsername, kAdminPassword);
+}
 
 Football::~Football() {
+  delete admin;
   for (auto team : this->teams) {
     delete team;
   }
@@ -125,9 +128,9 @@ void Football::process_get_method(stringstream &ss) const {
   } else if (command == "squad") {
     this->get_squad(ss);
   } else if (command == "") {
-    cout << BAD_REQUEST << endl;
+    cout << kBadRequest << endl;
   } else {
-    cout << NOT_FOUND << endl;
+    cout << kNotFound << endl;
   }
 }
 
@@ -153,9 +156,9 @@ void Football::process_post_method(stringstream &ss) {
   } else if (command == "pass_week") {
     this->post_pass_week();
   } else if (command == "") {
-    cout << BAD_REQUEST << endl;
+    cout << kBadRequest << endl;
   } else {
-    cout << NOT_FOUND << endl;
+    cout << kNotFound << endl;
   }
 }
 
@@ -163,9 +166,9 @@ void Football::process_put_method(stringstream &ss) const {
   string command("");
   ss >> command;
   if (command == "") {
-    cout << BAD_REQUEST << endl;
+    cout << kBadRequest << endl;
   } else {
-    cout << NOT_FOUND << endl;
+    cout << kNotFound << endl;
   }
 }
 
@@ -173,8 +176,8 @@ void Football::process_delete_method(stringstream &ss) const {
   string command("");
   ss >> command;
   if (command == "") {
-    cout << BAD_REQUEST << endl;
+    cout << kBadRequest << endl;
   } else {
-    cout << NOT_FOUND << endl;
+    cout << kNotFound << endl;
   }
 }

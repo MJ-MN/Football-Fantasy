@@ -11,6 +11,9 @@
 #include "user.hh"
 #include "week.hh"
 
+const std::string kAdminUsername = "admin";
+const std::string kAdminPassword = "123456";
+
 class Football {
  public:
   Football();
@@ -52,6 +55,7 @@ class Football {
   void post_open_transfer_window();
   void post_pass_week();
 
+  User *admin;
   std::vector<Team *> teams;
   std::vector<Week *> weeks;
   std::vector<User *> users;

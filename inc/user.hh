@@ -14,7 +14,7 @@ class User {
 
   std::string get_name() const;
   std::string get_password() const;
-  void login_user(std::stringstream &ss);
+  void login(std::stringstream &ss);
 
  private:
   bool logged_in;

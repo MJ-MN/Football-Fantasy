@@ -27,7 +27,7 @@ int main() {
     } else if (method == "DELETE") {
 
     } else {
-      cout << BAD_REQUEST << endl;
+      cout << kBadRequest << endl;
     }
   }
   return 0;
