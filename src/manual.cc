@@ -1,3 +1,4 @@
+#include <sstream>
 #include <string>
 #include <utility>
 #include <vector>
@@ -30,6 +31,13 @@ string replace_underscore(string str) {
     str[pos] = ' ';
   }
   return str;
+}
+
+string get_name(stringstream &ss) {
+  string name("");
+  getline(ss, name, '\0');
+  name.erase(name.begin());
+  return name;
 }
 
 bool standings_comparator(Team *team1, Team *team2) {

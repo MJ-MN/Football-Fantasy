@@ -7,10 +7,11 @@
 
 using namespace std;
 
-User::User() : logged_in(false) {}
+User::User() : logged_in(false), players_sold(0) {}
 
 User::User(const string &_username, const string &_password) 
-    : logged_in(false), username(_username), password(_password) {}
+    : logged_in(false), username(_username), password(_password),
+      players_sold(0) {}
 
 string User::get_name() const {
   return this->username;
@@ -41,4 +42,17 @@ void User::login(stringstream &ss) {
 
 void User::logout() {
   this->logged_in = false;
+}
+
+void User::sell_player(const string &name) {
+  if (this->players_sold < 2 || this->team.is_completed() == false) {
+    if (this->team.sell_player(name)) {
+      ++players_sold;
+      cout << kOk << endl;
+    } else {
+      cout << kNotFound << endl;
+    }
+  } else {
+    cout << kPermissionDenied << endl;
+  }
 }

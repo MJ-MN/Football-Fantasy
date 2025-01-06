@@ -9,16 +9,9 @@ using namespace std;
 void Football::post_signup(std::stringstream &ss) {
   string qm(""), team_name_arg(""), team_name("");
   ss >> qm >> team_name_arg >> team_name;
-  if (qm == "?" && team_name_arg != "" && team_name != "") {
-    if (team_name_arg == "team_name") {
-      if (this->find_user_by_name(team_name) == NULL) {
-        this->signup_user(ss, team_name);
-      } else {
-        cout << kBadRequest << endl;
-      }
-    } else {
-      cout << kBadRequest << endl;
-    }
+  if (qm == "?" && team_name_arg == "team_name" && team_name != "" &&
+      this->find_user_by_name(team_name) == NULL) {
+    this->signup_user(ss, team_name);
   } else {
     cout << kBadRequest << endl;
   }
@@ -38,17 +31,13 @@ void Football::signup_user(stringstream &ss, const string &username) {
 void Football::post_login(std::stringstream &ss) {
   string qm(""), team_name_arg(""), team_name("");
   ss >> qm >> team_name_arg >> team_name;
-  if (qm == "?" && team_name_arg != "" && team_name != "" &&
+  if (qm == "?" && team_name_arg == "team_name" && team_name != "" &&
       this->who_is_logged_in() == NULL) {
-    if (team_name_arg == "team_name") {
-      User *user = this->find_user_by_name(team_name);
-      if (user != NULL) {
-        user->login(ss);
-      } else {
-        cout << kNotFound << endl;
-      }
+    User *user = this->find_user_by_name(team_name);
+    if (user != NULL) {
+      user->login(ss);
     } else {
-      cout << kBadRequest << endl;
+      cout << kNotFound << endl;
     }
   } else {
     cout << kBadRequest << endl;
@@ -58,17 +47,10 @@ void Football::post_login(std::stringstream &ss) {
 void Football::post_register_admin(std::stringstream &ss) {
   string qm(""), username_arg(""), username("");
   ss >> qm >> username_arg >> username;
-  if (qm == "?" && username_arg != "" && username != "" &&
+  if (qm == "?" && username_arg == "username" &&
+      username == this->admin->get_name() &&
       this->who_is_logged_in() == NULL) {
-    if (username_arg == "username") {
-      if (username == this->admin->get_name()) {
-        this->admin->login(ss);
-      } else {
-        cout << kBadRequest << endl;
-      }
-    } else {
-      cout << kBadRequest << endl;
-    }
+    this->admin->login(ss);
   } else {
     cout << kBadRequest << endl;
   }
@@ -83,7 +65,19 @@ void Football::post_logout() {
 }
 
 void Football::post_sell_player(std::stringstream &ss) {
-
+  User *user = this->who_is_logged_in();
+  if (user != NULL && this->transfer_window_is_open == true) {
+    string qm(""), name_arg("");
+    ss >> qm >> name_arg;
+    string name = get_name(ss);
+    if (qm == "?" && name_arg == "name" && name != "") {
+      user->sell_player(name);
+    } else {
+      cout << kBadRequest << endl;
+    }
+  } else {
+    cout << kPermissionDenied << endl;
+  }
 }
 
 void Football::post_buy_player(std::stringstream &ss) {

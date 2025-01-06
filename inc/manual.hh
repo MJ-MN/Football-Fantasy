@@ -1,6 +1,7 @@
 #ifndef __MANUAL_HH
 #define __MANUAL_HH
 
+#include <sstream>
 #include <string>
 #include <utility>
 #include <vector>
@@ -17,6 +18,7 @@ const std::string kEmpty = "Empty";
 std::pair<Player *, Player *> find_two_best_players(
     const std::vector<Player *> &players, int week_num);
 std::string replace_underscore(std::string str);
+std::string get_name(std::stringstream &ss);
 bool standings_comparator(Team *team1, Team *team2);
 
 #endif /* __MANUAL_HH */

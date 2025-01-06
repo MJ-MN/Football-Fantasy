@@ -61,6 +61,7 @@ class Football {
   std::vector<Week *> weeks;
   std::vector<User *> users;
   int last_week;
+  bool transfer_window_is_open;
 };
 
 #endif /* __FOOTBALL_HH */

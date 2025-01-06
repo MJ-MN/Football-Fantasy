@@ -4,6 +4,8 @@
 #include <sstream>
 #include <string>
 
+#include "fantasy_team.hh"
+
 class User {
  public:
   User();
@@ -17,11 +19,14 @@ class User {
   bool is_logged_in() const;
   void login(std::stringstream &ss);
   void logout();
+  void sell_player(const std::string &name);
 
  private:
   bool logged_in;
   std::string username;
-  std::string password; 
+  std::string password;
+  FantasyTeam team;
+  int players_sold;
 };
 
 #endif /* __USER_HH */

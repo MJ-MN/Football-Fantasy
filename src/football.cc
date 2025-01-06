@@ -12,7 +12,7 @@
 using namespace std;
 
 Football::Football()
-    : last_week(0) {
+    : last_week(0), transfer_window_is_open(false) {
   this->admin = new User(kAdminUsername, kAdminPassword);
 }
 
