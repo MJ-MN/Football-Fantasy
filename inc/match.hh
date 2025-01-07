@@ -30,6 +30,9 @@ class Match {
   void extract_data(MatchTitle title, const std::string &content,
                     Football &football);
   void print_result(int week_num) const;
+  bool player_has_red_card(const Player *player) const;
+  bool player_has_yellow_card(const Player *player) const;
+  bool player_is_injured(const Player *player) const;
 
  private:
   void extract_teams(const std::string &content, Football &football);

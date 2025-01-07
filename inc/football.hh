@@ -24,6 +24,7 @@ class Football {
   void extract_teams();
   void extract_weeks();
   Team *find_team_by_name(const std::string &name) const;
+  Player *find_player_by_name(const std::string &name) const;
   User *find_user_by_name(const std::string &name) const;
   void process_get_method(std::stringstream &ss) const;
   void process_post_method(std::stringstream &ss);
@@ -51,10 +52,15 @@ class Football {
   void post_logout();
   void post_sell_player(std::stringstream &ss);
   void post_buy_player(std::stringstream &ss);
+  void buy_player(User *user, const std::string &name);
   void post_close_transfer_window();
   void post_open_transfer_window();
   void post_pass_week();
   User *who_is_logged_in() const;
+  bool is_player_available(const Player *player) const;
+  bool player_has_red_card(const Player *player) const;
+  bool player_has_three_yellow_cards(const Player *player) const;
+  bool player_is_injured(const Player *player) const;
 
   User *admin;
   std::vector<Team *> teams;

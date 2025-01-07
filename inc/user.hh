@@ -20,6 +20,7 @@ class User {
   void login(std::stringstream &ss);
   void logout();
   void sell_player(const std::string &name);
+  void buy_player(Player *player);
 
  private:
   bool logged_in;

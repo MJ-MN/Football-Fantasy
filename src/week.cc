@@ -89,3 +89,30 @@ void Week::print_matches_result(int week_num) const {
     match->print_result(week_num);
   }
 }
+
+bool Week::player_has_red_card(const Player *player) const {
+  for (Match *match : this->matches) {
+    if (match->player_has_red_card(player)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool Week::player_has_yellow_card(const Player *player) const {
+  for (Match *match : this->matches) {
+    if (match->player_has_yellow_card(player)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool Week::player_is_injured(const Player *player) const {
+  for (Match *match : this->matches) {
+    if (match->player_is_injured(player)) {
+      return true;
+    }
+  }
+  return false;
+}

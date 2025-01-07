@@ -45,14 +45,27 @@ void User::logout() {
 }
 
 void User::sell_player(const string &name) {
-  if (this->players_sold < 2 || this->team.is_completed() == false) {
+  if (this->players_sold < 2) {
     if (this->team.sell_player(name)) {
-      ++players_sold;
+      if (this->team.is_completed()) {
+        ++players_sold;
+      }
       cout << kOk << endl;
     } else {
       cout << kNotFound << endl;
     }
   } else {
     cout << kPermissionDenied << endl;
+  }
+}
+
+void User::buy_player(Player *player) {
+  if (this->team.buy_player(player)) {
+    if (!this->team.is_completed() && this->team.is_filled()) {
+      this->team.set_completed();
+    }
+    cout << kOk << endl;
+  } else {
+    cout << kBadRequest << endl;
   }
 }

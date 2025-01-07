@@ -38,7 +38,7 @@ void Match::extract_data(MatchTitle title, const string &content,
   }
 }
 
-void Match::extract_teams(const std::string &content, Football &football) {
+void Match::extract_teams(const string &content, Football &football) {
   stringstream content_ss(content);
   string name("");
   getline(content_ss, name, ':');
@@ -49,7 +49,7 @@ void Match::extract_teams(const std::string &content, Football &football) {
   this->secondTeam->add_match();
 }
 
-void Match::extract_result(const std::string &content) {
+void Match::extract_result(const string &content) {
   stringstream content_ss(content);
   string num1(""), num2("");
   getline(content_ss, num1, ':');
@@ -93,4 +93,31 @@ void Match::print_result(int week_num) const {
   cout << " " << this->firstTeam->get_goal_for(week_num);
   cout << " | " << this->secondTeam->get_name();
   cout << " " << this->secondTeam->get_goal_for(week_num) << endl;
+}
+
+bool Match::player_has_red_card(const Player *player) const {
+  for (Player *_player : this->red_cards) {
+    if (_player == player) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool Match::player_has_yellow_card(const Player *player) const {
+  for (Player *_player : this->yellow_cards) {
+    if (_player == player) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool Match::player_is_injured(const Player *player) const {
+  for (Player *_player : this->injured) {
+    if (_player == player) {
+      return true;
+    }
+  }
+  return false;
 }

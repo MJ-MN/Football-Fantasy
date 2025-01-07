@@ -81,7 +81,32 @@ void Football::post_sell_player(std::stringstream &ss) {
 }
 
 void Football::post_buy_player(std::stringstream &ss) {
+  User *user = this->who_is_logged_in();
+  if (user != NULL && this->transfer_window_is_open == true) {
+    string qm(""), name_arg("");
+    ss >> qm >> name_arg;
+    string name = get_name(ss);
+    if (qm == "?" && name_arg == "name" && name != "") {
+      this->buy_player(user, name);
+    } else {
+      cout << kBadRequest << endl;
+    }
+  } else {
+    cout << kPermissionDenied << endl;
+  }
+}
 
+void Football::buy_player(User *user, const string &name) {
+  Player *player = this->find_player_by_name(name);
+  if (player != NULL) {
+    if (this->is_player_available(player)) {
+      user->buy_player(player);
+    } else {
+      cout << "This player is not available for next week" << endl;
+    }
+  } else {
+    cout << kNotFound << endl;
+  }
 }
 
 void Football::post_close_transfer_window() {

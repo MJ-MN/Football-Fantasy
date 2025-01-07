@@ -80,7 +80,17 @@ Team *Football::find_team_by_name(const string &name) const {
   return NULL;
 }
 
-User *Football::find_user_by_name(const std::string &name) const {
+Player *Football::find_player_by_name(const string &name) const {
+  for (Team *team : this->teams) {
+    Player *player = team->find_player_by_name(name);
+    if (player != NULL) {
+      return player;
+    }
+  }
+  return NULL;
+}
+
+User *Football::find_user_by_name(const string &name) const {
   for (User *user : this->users) {
     if (user->get_name() == name) {
       return user;
@@ -192,4 +202,42 @@ User *Football::who_is_logged_in() const {
     }
   }
   return NULL;
+}
+
+bool Football::is_player_available(const Player *player) const {
+  if (this->player_has_red_card(player) ||
+      this->player_has_three_yellow_cards(player) ||
+      this->player_is_injured(player)) {
+    return false;
+  }
+  return true;
+}
+
+bool Football::player_has_red_card(const Player *player) const {
+  return this->weeks[this->last_week]->player_has_red_card(player);
+}
+
+bool Football::player_has_three_yellow_cards(const Player *player) const {
+  int suspended_week = -1;
+  int yellow_cards_count = 0;
+  for (int i = suspended_week + 1; i <= this->last_week; ++i) {
+    if (this->weeks[i]->player_has_yellow_card(player)) {
+      ++yellow_cards_count;
+    }
+    if (yellow_cards_count >= 3) {
+      yellow_cards_count = 0;
+      suspended_week = i;
+    }
+  }
+  return (suspended_week == this->last_week) ? true : false;
+}
+
+bool Football::player_is_injured(const Player *player) const {
+  int injuries_count = 0;
+  for (int i = this->last_week; i >= 0 && this->last_week - i < 3; --i) {
+    if (this->weeks[i]->player_is_injured(player)) {
+      ++injuries_count;
+    }
+  }
+  return (injuries_count == 3) ? true : false;
 }

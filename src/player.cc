@@ -39,7 +39,7 @@ float Player::get_avg_score() const {
 }
 
 void Player::add_match() {
-  this->scores.push_back(-1.0f);
+  this->scores.push_back(0);
 }
 
 Goalkeeper::Goalkeeper() : Player() {
