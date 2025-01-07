@@ -14,6 +14,14 @@ void FantasyTeam::set_completed() {
   this->completed = true;
 }
 
+float FantasyTeam::get_score(int week_num) const {
+  return this->goalkeeper->get_score(week_num) +
+         this->defender1->get_score(week_num) +
+         this->defender2->get_score(week_num) +
+         this->midfielder->get_score(week_num) +
+         this->forward->get_score(week_num);
+}
+
 bool FantasyTeam::is_completed() const {
   return this->completed;
 }
@@ -94,10 +102,5 @@ void FantasyTeam::print_players() const {
 }
 
 void FantasyTeam::print_score(int week_num) const {
-  int total_points = this->goalkeeper->get_score(week_num) +
-                     this->defender1->get_score(week_num) +
-                     this->defender2->get_score(week_num) +
-                     this->midfielder->get_score(week_num) +
-                     this->forward->get_score(week_num);
-  cout << "Total Points: " << total_points << endl;
+  cout << "Total Points: " << this->get_score(week_num) << endl;
 }

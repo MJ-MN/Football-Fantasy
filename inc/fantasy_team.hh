@@ -13,6 +13,7 @@ class FantasyTeam {
   ~FantasyTeam() = default;
 
   void set_completed();
+  float get_score(int week_num) const;
   bool is_completed() const;
   bool is_filled() const;
   bool sell_player(const std::string &name);

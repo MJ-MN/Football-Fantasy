@@ -84,7 +84,21 @@ void Football::print_league_standings() const {
 }
 
 void Football::get_users_ranking() const {
-
+  vector<User *> _users = this->users;
+  sort(_users.begin(), _users.end(), [=](User *user1, User *user2) {
+    if (user1->get_score(this->last_week) ==
+        user2->get_score(this->last_week)) {
+      return user1->get_name() < user2->get_name();
+    } else {
+      return user1->get_score(this->last_week) >
+             user2->get_score(this->last_week);
+    }
+  });
+  for (int i = 0; i < _users.size(); ++i) {
+    cout << i + 1 << ". team_name: ";
+    cout << _users[i]->get_name() << " | ";
+    cout << _users[i]->get_score(this->last_week) << endl;
+  }
 }
 
 void Football::get_matches_result_league(stringstream &ss) const {

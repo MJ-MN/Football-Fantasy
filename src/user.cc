@@ -21,6 +21,10 @@ string User::get_password() const {
   return this->password;
 }
 
+float User::get_score(int week_num) const {
+  return this->team.get_score(week_num);
+}
+
 bool User::is_logged_in() const {
   return this->logged_in;
 }
