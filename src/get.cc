@@ -112,5 +112,35 @@ void Football::print_matches_result_league(int week_num) const {
 }
 
 void Football::get_squad(stringstream &ss) const {
-  
+  string qm(""), fantasy_team_arg(""), fantasy_team("");
+  ss >> qm >> fantasy_team_arg >> fantasy_team;
+  if (qm == "?" && fantasy_team_arg != "" && fantasy_team != "") {
+    if (fantasy_team_arg == "fantasy_team") {
+      this->print_squad(fantasy_team);
+    } else {
+      cout << kBadRequest << endl;
+    }
+  } else if (qm == "" && fantasy_team_arg == "" && fantasy_team == "") {
+    this->print_squad();
+  } else {
+    cout << kBadRequest << endl;
+  }
+}
+
+void Football::print_squad(const string &fantasy_team) const {
+  if (fantasy_team != "") {
+    User *user = this->find_user_by_name(fantasy_team);
+    if (user != NULL) {
+      user->print_squad(this->last_week);
+    } else {
+      cout << kNotFound << endl;
+    }
+  } else {
+    User *user = this->who_is_logged_in();
+    if (user != NULL) {
+      user->print_squad(this->last_week);
+    } else {
+      cout << kPermissionDenied << endl;
+    }
+  }
 }

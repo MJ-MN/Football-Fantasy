@@ -21,6 +21,7 @@ class User {
   void logout();
   void sell_player(const std::string &name);
   void buy_player(Player *player);
+  void print_squad(int week_num) const;
 
  private:
   bool logged_in;

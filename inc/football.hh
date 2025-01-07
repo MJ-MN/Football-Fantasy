@@ -45,6 +45,7 @@ class Football {
   void get_matches_result_league(std::stringstream &ss) const;
   void print_matches_result_league(int week_num) const;
   void get_squad(std::stringstream &ss) const;
+  void print_squad(const std::string &fantasy_team = "") const;
   void post_signup(std::stringstream &ss);
   void signup_user(std::stringstream &ss, const std::string &name);
   void post_login(std::stringstream &ss);

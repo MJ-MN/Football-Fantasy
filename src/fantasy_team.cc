@@ -79,3 +79,25 @@ bool FantasyTeam::buy_player(Player *player) {
   }
   return ret_flag;
 }
+
+void FantasyTeam::print_players() const {
+  cout << "Goalkeeper: " << this->goalkeeper->get_name() << endl;
+  if (this->defender1->get_name() < this->defender2->get_name()) {
+    cout << "Defender1: " << this->defender1->get_name() << endl;
+    cout << "Defender2: " << this->defender2->get_name() << endl;
+  } else {
+    cout << "Defender1: " << this->defender2->get_name() << endl;
+    cout << "Defender2: " << this->defender1->get_name() << endl;
+  }
+  cout << "Midfielder: " << this->midfielder->get_name() << endl;
+  cout << "Stricker: " << this->forward->get_name() << endl;
+}
+
+void FantasyTeam::print_score(int week_num) const {
+  int total_points = this->goalkeeper->get_score(week_num) +
+                     this->defender1->get_score(week_num) +
+                     this->defender2->get_score(week_num) +
+                     this->midfielder->get_score(week_num) +
+                     this->forward->get_score(week_num);
+  cout << "Total Points: " << total_points << endl;
+}

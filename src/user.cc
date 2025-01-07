@@ -69,3 +69,13 @@ void User::buy_player(Player *player) {
     cout << kBadRequest << endl;
   }
 }
+
+void User::print_squad(int week_num) const {
+  if (this->team.is_filled()) {
+    cout << "fantasy_team: " << this->username << endl;
+    this->team.print_players();
+    this->team.print_score(week_num);
+  } else {
+    cout << kEmpty << endl;
+  }
+}

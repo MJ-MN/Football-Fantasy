@@ -17,6 +17,8 @@ class FantasyTeam {
   bool is_filled() const;
   bool sell_player(const std::string &name);
   bool buy_player(Player *player);
+  void print_players() const;
+  void print_score(int week_num) const;
 
  private:
   Player *goalkeeper;
