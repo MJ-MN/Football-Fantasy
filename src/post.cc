@@ -110,11 +110,21 @@ void Football::buy_player(User *user, const string &name) {
 }
 
 void Football::post_close_transfer_window() {
-
+  if (this->admin->is_logged_in()) {
+    this->transfer_window_is_open = false;
+    cout << kOk << endl;
+  } else {
+    cout << kPermissionDenied << endl;
+  }
 }
 
 void Football::post_open_transfer_window() {
-
+  if (this->admin->is_logged_in()) {
+    this->transfer_window_is_open = true;
+    cout << kOk << endl;
+  } else {
+    cout << kPermissionDenied << endl;
+  }
 }
 
 void Football::post_pass_week() {
