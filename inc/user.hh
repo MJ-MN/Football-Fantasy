@@ -22,6 +22,7 @@ class User {
   void sell_player(const std::string &name);
   void buy_player(Player *player);
   void print_squad(int week_num) const;
+  void reset_sale_limit();
 
  private:
   bool logged_in;

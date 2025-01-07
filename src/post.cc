@@ -128,5 +128,13 @@ void Football::post_open_transfer_window() {
 }
 
 void Football::post_pass_week() {
-
+  if (this->admin->is_logged_in()) {
+    ++this->last_week;
+    for (User *user : this->users) {
+      user->reset_sale_limit();
+    }
+    cout << kOk << endl;
+  } else {
+    cout << kPermissionDenied << endl;
+  }
 }

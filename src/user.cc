@@ -79,3 +79,7 @@ void User::print_squad(int week_num) const {
     cout << kEmpty << endl;
   }
 }
+
+void User::reset_sale_limit() {
+  this->players_sold = 0;
+}
